@@ -1,24 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense, useEffect } from 'react'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useSelector } from 'react-redux'
+
+import { CSpinner, useColorModes } from '@coreui/react'
+import './scss/style.scss'
+
+const MainLayout = React.lazy(() => import('./layouts/main/MainLayout'))
+const ManagementLayout = React.lazy(() => import('./layouts/management/ManagementLayout'))
 
 function App() {
+  const { isColorModeSet, setColorMode } = useColorModes('coreui-free-react-admin-template-theme')
+  const storedTheme = useSelector((state) => state.theme)
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.href.split('?')[1])
+    const theme = urlParams.get('theme') && urlParams.get('theme').match(/^[A-Za-z0-9\s]+/)[0]
+    if (theme) {
+      setColorMode(theme)
+    }
+
+    if (isColorModeSet()) {
+      return
+    }
+
+    setColorMode(storedTheme)
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <>
+      <BrowserRouter>
+        <Suspense
+          fallback={
+            <div className="pt-3 text-center">
+              <CSpinner color="primary" variant="grow" />
+            </div>
+          }
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Routes>
+            <Route path="*" name="Home" element={<MainLayout/>}></Route>
+            <Route path="/management/*" name="Management" element={<ManagementLayout/>}></Route>
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
+    </>
   );
 }
 
