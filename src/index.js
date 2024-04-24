@@ -6,6 +6,34 @@ import reportWebVitals from './reportWebVitals';
 
 import App from './App';
 import store from './store'
+import './i18n';
+
+import axios from 'axios';
+import AuthenticateService from './core/services/auth/authenticate.service.ts';
+import { UrlConstant } from './core/constants/url.constant.ts';
+
+const addLanguageOnly = function (config) {
+  config.headers['Accept-Language'] = localStorage.getItem('language') === 'en' ? 'us' : 'lv'
+  return config
+}
+
+const addLanguageAndToken = function (config) {
+  config = addLanguageOnly(config)
+  config.headers.Authorization = `Bearer ${AuthenticateService.getAuthData().token}`
+  return config
+}
+
+axios.interceptors.request.use((config) => {
+  if (UrlConstant.PUBLIC_URL.some(
+    (x) => x.method === config.method?.toUpperCase() && new RegExp(x.regex).test(config.url))) {
+    config = addLanguageOnly(config)
+  } else if (AuthenticateService.getAuthData() !== null) {
+    config = addLanguageAndToken(config)
+  } else {
+    config = addLanguageOnly(config)
+  }
+  return config
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

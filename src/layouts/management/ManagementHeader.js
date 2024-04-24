@@ -23,10 +23,13 @@ import {
   cilMenu,
   cilMoon,
   cilSun,
+  cifLv,
+  cifUs,
 } from '@coreui/icons';
 
 // import AppBreadcrumb from './AppBreadcrumb';
 import AppHeaderDropdown from './AppHeaderDropdown';
+import { useTranslation } from 'react-i18next';
 
 function ManagementHeader() {
   const headerRef = useRef();
@@ -34,6 +37,13 @@ function ManagementHeader() {
 
   const dispatch = useDispatch();
   const sidebarShow = useSelector((state) => state.sidebarShow);
+
+  const {t, i18n} = useTranslation();
+  const lang = localStorage.getItem('i18nextLng') ?? 'en';
+
+  const switchLang = (language) => {
+    i18n.changeLanguage(language)
+  }
 
   useEffect(() => {
     document.addEventListener('scroll', () => {
@@ -53,15 +63,9 @@ function ManagementHeader() {
         </CHeaderToggler>
         <CHeaderNav className="d-none d-md-flex">
           <CNavItem>
-            <CNavLink to="/dashboard" as={NavLink}>
-              Dashboard
+            <CNavLink to="/management" as={NavLink}>
+              {t('DASHBOARD')}
             </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink href="#">Users</CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink href="#">Settings</CNavLink>
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav className="ms-auto">
@@ -122,6 +126,35 @@ function ManagementHeader() {
                 onClick={() => setColorMode('auto')}
               >
                 <CIcon className="me-2" icon={cilContrast} size="lg" /> Auto
+              </CDropdownItem>
+            </CDropdownMenu>
+          </CDropdown>
+          <CDropdown variant="nav-item" placement="bottom-end">
+            <CDropdownToggle caret={false}>
+              {lang === 'en' ? (
+                <CIcon icon={cifUs} size="lg" />
+              ) : (
+                <CIcon icon={cifLv} size="lg" />
+              )}
+            </CDropdownToggle>
+            <CDropdownMenu>
+              <CDropdownItem
+                active={lang === 'en'}
+                className="d-flex align-items-center"
+                as="button"
+                type="button"
+                onClick={() => switchLang('en')}
+              >
+                <CIcon className="me-2" icon={cifUs} size="lg" /> English
+              </CDropdownItem>
+              <CDropdownItem
+                active={lang === 'lv'}
+                className="d-flex align-items-center"
+                as="button"
+                type="button"
+                onClick={() => switchLang('lv')}
+              >
+                <CIcon className="me-2" icon={cifLv} size="lg" /> Laviski
               </CDropdownItem>
             </CDropdownMenu>
           </CDropdown>

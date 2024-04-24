@@ -6,16 +6,11 @@ import {
   CSidebarBrand,
   CSidebarHeader,
   CSidebarToggler,
-  CSidebarNav,
-  CNavTitle,
-  CNavItem,
   CSidebarFooter,
-  CNavGroup,
   CCloseButton
 } from '@coreui/react';
 
 import CIcon from '@coreui/icons-react';
-import {cilSpeedometer, cilPuzzle, cilCloudDownload, cilLayers} from '@coreui/icons'
 
 import { AppSidebarNav } from './AppSidebarNav';
 import nav from './nav';

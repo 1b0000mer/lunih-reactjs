@@ -2,8 +2,11 @@ import React, { Suspense, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useSelector } from 'react-redux'
 
+import { Toaster } from 'sonner';
+
 import { CSpinner, useColorModes } from '@coreui/react'
 import './scss/style.scss'
+import AuthenticateService from './core/services/auth/authenticate.service.ts';
 
 const MainLayout = React.lazy(() => import('./layouts/main/MainLayout'))
 const ManagementLayout = React.lazy(() => import('./layouts/management/ManagementLayout'))
@@ -36,9 +39,11 @@ function App() {
             </div>
           }
         >
+          <Toaster duration={3000} theme='dark' richColors/>
           <Routes>
             <Route path="*" name="Home" element={<MainLayout/>}></Route>
             <Route path="/management/*" name="Management" element={<ManagementLayout/>}></Route>
+            <Route path="/logout" element={AuthenticateService.doLogout()}></Route>
           </Routes>
         </Suspense>
       </BrowserRouter>
