@@ -25,6 +25,9 @@ import {
   cilSun,
 } from '@coreui/icons';
 
+// import AppBreadcrumb from './AppBreadcrumb';
+import AppHeaderDropdown from './AppHeaderDropdown';
+
 function ManagementHeader() {
   const headerRef = useRef();
   const { colorMode, setColorMode } = useColorModes('coreui-free-react-admin-template-theme');
@@ -125,7 +128,7 @@ function ManagementHeader() {
           <li className="nav-item py-1">
             <div className="vr h-100 mx-2 text-body text-opacity-75"></div>
           </li>
-          {/* <AppHeaderDropdown /> */}
+          <AppHeaderDropdown />
         </CHeaderNav>
       </CContainer>
       <CContainer className="px-4" fluid>

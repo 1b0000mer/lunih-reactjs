@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 import ManagementSidebar from './ManagementSidebar';
 import ManagementHeader from './ManagementHeader';
+import Page404 from '../../views/Page404';
 
 import { CContainer, CSpinner } from '@coreui/react';
 
@@ -24,6 +25,7 @@ function ManagementLayout() {
                   )
                 })}
                 <Route index element={<Navigate to="dashboard" replace={true}/>}/>
+                <Route path="*" element={<Page404/>}></Route>
               </Routes>
             </Suspense>    
           </CContainer>

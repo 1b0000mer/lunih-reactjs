@@ -4,8 +4,8 @@ const Dashboard = React.lazy(() => import('../views/management/Dashboard'));
 const Faculty = React.lazy(() => import('../views/management/Faculty'));
 
 const managementRoutes = [
-  { path: '/dashboard', element: Dashboard },
-  { path: '/categories/faculty', element: Faculty },
+  { path: '/dashboard', name: 'Dashboard', element: Dashboard },
+  { path: '/categories/faculty', name: 'Faculty', element: Faculty },
 ];
 
 export default managementRoutes;
