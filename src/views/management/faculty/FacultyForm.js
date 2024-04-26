@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next';
 
-import { CButton, CForm, CFormInput, CModalFooter, CModalHeader, CModalTitle } from '@coreui/react';
+import { CButton, CForm, CFormInput, CModalFooter, CModalHeader, CModalTitle, CSpinner } from '@coreui/react';
 import { toast } from 'sonner';
 
 import SystemConstant from '../../../core/constants/system.constant.ts';
@@ -14,6 +14,7 @@ function FacultyForm({modalData, onClose}) {
     nameEn: '',
     nameLv: ''
   });
+  const [ loading, setLoading ] = useState(false);
   
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -24,10 +25,12 @@ function FacultyForm({modalData, onClose}) {
   };
 
   const onSubmit = () => {
+    setLoading(true);
     if (modalData.action === SystemConstant.ACTION.EDIT) {
       FacultyService.update(modalData.data.id, form).then(
         () => {
           toast.success(t('MSG_UPDATE_DONE'));
+          setLoading(false);
           onClose(true);
         },
         (error) => console.error(error)
@@ -36,6 +39,7 @@ function FacultyForm({modalData, onClose}) {
       FacultyService.create(form).then(
         () => {
           toast.success(t('MSG_CREATE_DONE'));
+          setLoading(false);
           onClose(true);
         },
         (error) => console.error(error)
@@ -47,13 +51,15 @@ function FacultyForm({modalData, onClose}) {
       <CModalHeader>
         <CModalTitle>{modalData.title}</CModalTitle>
       </CModalHeader>
-      <CForm>
+      <CForm className="modal-body">
         <CFormInput name="nameEn" onChange={handleChange} label={t('FACULTY_NAME_EN')} value={form.nameEn}/>
         <CFormInput name="nameLv" onChange={handleChange} label={t('FACULTY_NAME_LV')} value={form.nameLv}/>
       </CForm>
       <CModalFooter>
-        <CButton onClick={() => onClose()}>{t('CANCEL')}</CButton>
-        <CButton onClick={onSubmit}>{t('CONFIRM')}</CButton>
+        <CButton color="secondary" onClick={() => onClose()}>{t('CANCEL')}</CButton>
+        <CButton disabled={loading} color="primary" onClick={onSubmit}>
+          <CSpinner className='me-2' as="span" size="sm" role="status" hidden={!loading}/>{t('CONFIRM')}
+        </CButton>
       </CModalFooter>
     </>
   )

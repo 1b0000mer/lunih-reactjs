@@ -2,11 +2,11 @@ import { Faculty } from "./faculty.model";
 import { Industry } from "./industry.model";
 
 export class Program {
-  id!: number;
+  id?: number;
   nameEn!: string;
   nameLv!: string;
   studyLevel!: string;
   faculty!: Faculty;
-  industryList!: Industry[];
-  status!: boolean;
+  industryList?: Industry[];
+  status?: boolean;
 }

@@ -34,15 +34,15 @@ const nav = [
       },
       {
         component: CNavItem,
-        name: 'PROGRAM',
-        to: '/management/categories/program',
-        icon: <CIcon icon={cilBook} customClassName="nav-icon text-primary" />
-      },
-      {
-        component: CNavItem,
         name: 'INDUSTRY',
         to: '/management/categories/industry',
         icon: <CIcon icon={cilSitemap} customClassName="nav-icon text-primary" />
+      },
+      {
+        component: CNavItem,
+        name: 'PROGRAM',
+        to: '/management/categories/program',
+        icon: <CIcon icon={cilBook} customClassName="nav-icon text-primary" />
       },
     ]
   }

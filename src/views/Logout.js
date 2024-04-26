@@ -9,7 +9,9 @@ function Logout() {
   const navigate = useNavigate();
   useEffect(() => {
     AuthenticateService.doLogout();
-    navigate('/');
+    setTimeout(() => {
+      navigate('/');
+    }, 2000);
   }, [navigate])
   return (
     <div className="min-vh-100 d-flex flex-row align-items-center">

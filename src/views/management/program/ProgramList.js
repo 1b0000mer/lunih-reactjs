@@ -11,17 +11,18 @@ import {
   cilTrash
 } from '@coreui/icons';
 
-import FacultyService from '../../../core/services/management/faculty.service.ts';
+import ProgramService from '../../../core/services/management/program.service.ts';
 
-import FacultyForm from './FacultyForm.js';
+import ProgramForm from './ProgramForm.js';
 import AppPaginate from '../../../components/AppPaginate.js';
 import Paginate from '../../../core/models/paginate.model.ts';
 
 import ModalData from '../../../core/models/common/modal-data.model.ts';
 import SystemConstant from '../../../core/constants/system.constant.ts';
-function FacultyList() {
+function ProgramList() {
   const { t } = useTranslation();
-  const [ listFaculty, setListFaculty ] = useState(new Paginate());
+  const lang = localStorage.getItem('i18nextLng');
+  const [ listProgram, setListProgram ] = useState(new Paginate());
   const [ searchValue, setSearchValue ] = useState('');
   const [ showModal, setShowModal ] = useState(false);
   const [ modalData, setModalData ] = useState(new ModalData());
@@ -32,18 +33,18 @@ function FacultyList() {
 
   const getDataPaging = (isSearch) => {
     if (isSearch) {
-      setListFaculty(prevState => ({
+      setListProgram(prevState => ({
         ...prevState,
         currentPage: 1
       }))
     }
-    FacultyService.getAllPaging(
-      listFaculty.currentPage - 1,
-      listFaculty.limit,
+    ProgramService.getAllPaging(
+      listProgram.currentPage - 1,
+      listProgram.limit,
       searchValue
     ).then(res => {
       let response = res.data;
-      setListFaculty(prevState => ({
+      setListProgram(prevState => ({
         ...prevState,
         currentPage: response.pageable.pageNumber + 1,
         limit: response.pageable.pageSize,
@@ -57,7 +58,7 @@ function FacultyList() {
   }
 
   const pageChange = (page) => {
-    setListFaculty(page);
+    setListProgram(page);
     getDataPaging();
   }
 
@@ -67,7 +68,7 @@ function FacultyList() {
 
   const changeStatus = (id) => {
     if (window.confirm(t('CONFIRM_CHANGE_STATUS'))) {
-      FacultyService.changeStatus(id).then(
+      ProgramService.changeStatus(id).then(
         () => {
           toast.success(t('MSG_CHANGE_DONE'));
           getDataPaging();
@@ -80,7 +81,7 @@ function FacultyList() {
 
   const deleteFaculty = (id) => {
     if (window.confirm(t('CONFIRM_DELETE'))) {
-      FacultyService.delete(id).then(
+      ProgramService.delete(id).then(
         () => {
           toast.success(t('MSG_UPDATE_DONE'));
           getDataPaging();
@@ -96,7 +97,14 @@ function FacultyList() {
       setModalData({
         title: t('EDIT_TITLE'),
         action: SystemConstant.ACTION.EDIT,
-        data: data
+        data: {
+          id: data.id,
+          nameEn: data.nameEn,
+          nameLv: data.nameLv,
+          studyLevel: data.studyLevel,
+          facultyID: data.faculty.id,
+          industryList: data.industryList
+        }
       });
     } else {
       setModalData({
@@ -109,7 +117,7 @@ function FacultyList() {
 
   const onCloseModal = (isRefresh) => {
     if (isRefresh) {
-      setListFaculty(prevState => ({
+      setListProgram(prevState => ({
         ...prevState,
         currentPage: 1
       }));
@@ -125,13 +133,23 @@ function FacultyList() {
       _props: { scope: 'col' }
     },
     {
-      key: 'nameEn',
-      label: t('FACULTY_NAME_EN'),
+      key: 'name',
+      label: t('PROGRAM_NAME'),
       _props: { scope: 'col' }
     },
     {
-      key: 'nameLv',
-      label: t('FACULTY_NAME_LV'),
+      key: 'studyLevel',
+      label: t('STUDY_LEVEL'),
+      _props: { scope: 'col' }
+    },
+    {
+      key: 'faculty',
+      label: t('FACULTY_NAME'),
+      _props: { scope: 'col' }
+    },
+    {
+      key: 'industryList',
+      label: t('INDUSTRY_NAME'),
       _props: { scope: 'col' }
     },
     {
@@ -173,25 +191,39 @@ function FacultyList() {
       <CCardBody>
         <CTable columns={columns}>
           <CTableBody>
-            {listFaculty.data.map((faculty) => {
+            {listProgram.data.map((program) => {
               return (
-                <CTableRow key={faculty.id}>
-                  <CTableHeaderCell scope='row'>{faculty.id}</CTableHeaderCell>
-                  <CTableDataCell>{faculty.nameEn}</CTableDataCell>
-                  <CTableDataCell>{faculty.nameLv}</CTableDataCell>
+                <CTableRow key={program.id}>
+                  <CTableHeaderCell scope='row'>{program.id}</CTableHeaderCell>
+                  <CTableDataCell>{
+                    lang === 'en' 
+                    ? program.nameEn 
+                    : program.nameLv
+                  }</CTableDataCell>
+                  <CTableDataCell>{program.studyLevel}</CTableDataCell>
+                  <CTableDataCell>{
+                  lang === 'en' 
+                  ? program.faculty.nameEn 
+                  : program.faculty.nameLv
+                  }</CTableDataCell>
+                  <CTableDataCell>{
+                    program.industryList.map((industry) => (
+                      <CBadge className="me-1" color="info" key={industry.id}>{lang === 'en' ? industry.nameEn : industry.nameLv}</CBadge>
+                    ))
+                  }</CTableDataCell>
                   <CTableDataCell className="text-center">
                     {
-                      faculty.status
-                      ? <CBadge onClick={() => changeStatus(faculty.id)} color="success" className="pe-on">{t('ACTIVE')}</CBadge> 
-                      : <CBadge onClick={() => changeStatus(faculty.id)} color="danger" className="pe-on">{t('INACTIVE')}</CBadge>
+                      program.status
+                      ? <CBadge onClick={() => changeStatus(program.id)} color="success" className="pe-on">{t('ACTIVE')}</CBadge> 
+                      : <CBadge onClick={() => changeStatus(program.id)} color="danger" className="pe-on">{t('INACTIVE')}</CBadge>
                     }
                   </CTableDataCell>
                   <CTableDataCell className="text-center">
-                    <CButton onClick={() => onOpenModal(faculty)} color="primary" size="sm" shape="rounded-pill">
+                    <CButton onClick={() => onOpenModal(program)} color="primary" size="sm" shape="rounded-pill">
                       <CIcon icon={cilPencil}/>
                     </CButton>
                     <div className="vr h-100 mx-2 text-body"></div>
-                    <CButton onClick={() => deleteFaculty(faculty.id)} color="danger" size="sm" shape="rounded-pill">
+                    <CButton onClick={() => deleteFaculty(program.id)} color="danger" size="sm" shape="rounded-pill">
                       <CIcon icon={cilTrash}/>
                     </CButton>
                   </CTableDataCell>
@@ -202,15 +234,15 @@ function FacultyList() {
         </CTable>
       </CCardBody>
       <CCardFooter>
-        <AppPaginate pageConfig={listFaculty} onPageChange={pageChange} />
+        <AppPaginate pageConfig={listProgram} onPageChange={pageChange} />
       </CCardFooter>
       <CModal visible={showModal} onClose={onCloseModal}>
         <CModalBody>
-          <FacultyForm modalData={modalData} onClose={onCloseModal}/>
+          <ProgramForm modalData={modalData} onClose={onCloseModal}/>
         </CModalBody>
       </CModal>
     </CCard>
   )
 }
 
-export default FacultyList
+export default ProgramList
