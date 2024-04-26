@@ -1,13 +1,9 @@
 import axios from 'axios'
-import { UrlConstant } from '@/core/constants/url.constant'
-import type { Faculty } from '@/core/models/categories/faculty.model'
-import type { PagedResults } from '@/core/models/common/response-page.model'
+import { UrlConstant } from '../../constants/url.constant.ts'
+import type { Faculty } from '../../models/categories/faculty.model.ts'
+import type { PagedResults } from '../../models/common/response-page.model.ts'
 
 const apiURL = UrlConstant.API.FACULTY
-
-const client = axios.create({
-  baseURL: UrlConstant.API.FACULTY
-})
 
 const FacultyService = {
   getAll() {
@@ -36,7 +32,7 @@ const FacultyService = {
   },
 
   changeStatus(id: number) {
-    return axios.delete(apiURL + '/change-status' + `/${id}`)
+    return axios.delete(apiURL + '/change-status/' + id)
   },
 
   delete(id: number) {

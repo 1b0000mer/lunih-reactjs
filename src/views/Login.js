@@ -12,6 +12,7 @@ import {
   CInputGroup,
   CInputGroupText,
   CRow,
+  CSpinner,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
@@ -26,18 +27,22 @@ const Login = () => {
   const { t } = useTranslation();
 
   const [validated, setValidated] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
   const handleLogin = (event) => {
     event.preventDefault();
+    setLoading(true);
     const form = event.currentTarget;
     if (form.checkValidity() === false) {      
       setValidated(true);
+      setLoading(false);
     } else {
       AuthenticateService.doLoginForm({email, password}).then(
         (res) => {
+          setLoading(false);
           toast.success(t('WELCOME_MSG'));
           AuthenticateService.setAuthData(res.data);
           if (AuthenticateService.checkRoleAdmin()) {
@@ -52,6 +57,7 @@ const Login = () => {
           } else {
             toast.error(error.message)
           }
+          setLoading(false);
         }
       )
     }
@@ -95,9 +101,20 @@ const Login = () => {
                     </CInputGroup>
                     <CRow>
                       <CCol xs={6}>
-                        <CButton type="submit" color="primary" className="px-4">
+                        <CButton type="submit" color="primary" className="px-3">
+                          <CSpinner className='me-2' as="span" size="sm" role="status" hidden={!loading}/>
                           {t('LOG_IN')}
                         </CButton>
+                        {/* <Button variant="primary" disabled>
+                        <Spinner
+                          as="span"
+                          animation="border"
+                          size="sm"
+                          role="status"
+                          aria-hidden="true"
+                        />
+                         Loading...
+                      </Button> */}
                       </CCol>
                       <CCol xs={6} className="text-right">
                         <CButton color="link" className="px-0">

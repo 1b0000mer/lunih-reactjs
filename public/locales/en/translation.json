@@ -44,7 +44,7 @@
   "LOG_IN_GOOGLE": "Log In with Google",
   "SIGN_UP": "Sign Up",
   "LOG_OUT": "Log Out",
-  "WELCOME_MSG": "Welcome back! {0}",
+  "WELCOME_MSG": "Welcome back!",
 
   "OR": "Or",
 
@@ -52,6 +52,7 @@
   "STATUS": "Status",
   "ACTIVE": "Active",
   "INACTIVE": "Inactive",
+  "ACTIONS": "Actions",
   
   "NUMBER_LIST": "Number of item(s)",
   "PAGE": "page",
@@ -79,6 +80,7 @@
   "POST_TYPE_NAME_EN": "Post Type in English",
   "POST_TYPE_NAME_LV": "Post Type in Latvian",
 
+  "SEARCH_BTN": "Search",
   "SEARCH": "Search...",
   "CATEGORIES": "Categories", 
   "ANNOUNCEMENT": "Announcements",

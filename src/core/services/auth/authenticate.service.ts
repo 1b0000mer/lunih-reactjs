@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { UrlConstant } from '../../constants/url.constant.ts'
-import { SystemConstant } from '../../constants/system.constant.ts'
+import SystemConstant from '../../constants/system.constant.ts'
 import type { AuthModel, LoginFormModel } from '../../models/common/auth.model.ts'
 
 const apiURL = UrlConstant.API.LOGIN

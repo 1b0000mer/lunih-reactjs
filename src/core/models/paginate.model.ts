@@ -1,4 +1,4 @@
-export class Paginate<T> {
+export default class Paginate<T> {
   totalPage?: number
   totalItem?: number
   limit: number

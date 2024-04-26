@@ -44,13 +44,14 @@
   "LOG_IN_GOOGLE": "Log In with Google",
   "SIGN_UP": "Reģistrēties",
   "LOG_OUT": "Izrakstīties",
-  "WELCOME_MSG": "Laipni lūdzam atpakaļ! {0}",
+  "WELCOME_MSG": "Laipni lūdzam atpakaļ!",
   
   "OR": "Vai",
   "NO": "Nr.",
   "STATUS": "Statuss",
   "ACTIVE": "Aktīvs",
   "INACTIVE": "Neaktīvs",
+  "ACTIONS": "Darbības",
 
   "NUMBER_LIST": "Vienību skaits",
   "PAGE": "lapa",
@@ -77,6 +78,7 @@
   "POST_TYPE_NAME_EN": "Ieraksta veids EN",
   "POST_TYPE_NAME_LV": "Ieraksta veids LV",
 
+  "SEARCH_BTN": "Meklēt",
   "SEARCH": "Meklē...",
   "CATEGORIES": "Kategorijas", 
   "ANNOUNCEMENT": "Paziņojums",

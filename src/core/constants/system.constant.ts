@@ -1,4 +1,4 @@
-export class SystemConstant {
+export default class SystemConstant {
 
   public static CURRENT_INFO = 'CURRENT_INFO';
   public static CURRENT_INFO_GOOGLE = 'CURRENT_INFO_GOOGLE';
