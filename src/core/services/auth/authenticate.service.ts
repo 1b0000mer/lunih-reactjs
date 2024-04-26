@@ -21,7 +21,7 @@ const AuthenticateService = {
 
   // set/ get localStorage model Auth
   getAuthData(): AuthModel {
-    return JSON.parse(localStorage.getItem(SystemConstant.CURRENT_INFO) || '{}')
+    return JSON.parse(localStorage.getItem(SystemConstant.CURRENT_INFO) || '{ "roles": []}')
   },
 
   setAuthData(model: AuthModel): void {
