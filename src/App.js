@@ -42,7 +42,7 @@ function App() {
             </div>
           }
         >
-          <Toaster duration={3000} theme='dark' richColors/>
+          <Toaster duration={3000} theme={storedTheme} richColors/>
           <Routes>
             <Route path="*" name="Home" element={<MainLayout/>}/>
             <Route element={<GuardedRoute auth={() => AuthenticateService.checkRoleAdmin()}/>}>

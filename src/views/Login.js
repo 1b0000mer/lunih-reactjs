@@ -105,16 +105,6 @@ const Login = () => {
                           <CSpinner className='me-2' as="span" size="sm" role="status" hidden={!loading}/>
                           {t('LOG_IN')}
                         </CButton>
-                        {/* <Button variant="primary" disabled>
-                        <Spinner
-                          as="span"
-                          animation="border"
-                          size="sm"
-                          role="status"
-                          aria-hidden="true"
-                        />
-                         Loading...
-                      </Button> */}
                       </CCol>
                       <CCol xs={6} className="text-right">
                         <CButton color="link" className="px-0">
