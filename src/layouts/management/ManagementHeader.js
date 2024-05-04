@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   CContainer,
@@ -38,7 +37,7 @@ function ManagementHeader() {
   const dispatch = useDispatch();
   const sidebarShow = useSelector((state) => state.sidebarShow);
 
-  const {t, i18n} = useTranslation();
+  const {i18n} = useTranslation();
   const lang = localStorage.getItem('i18nextLng') ?? 'en';
 
   const switchLang = (language) => {
@@ -61,13 +60,6 @@ function ManagementHeader() {
         >
           <CIcon icon={cilMenu} size="lg" />
         </CHeaderToggler>
-        <CHeaderNav className="d-none d-md-flex">
-          <CNavItem>
-            <CNavLink to="/management" as={NavLink}>
-              {t('DASHBOARD')}
-            </CNavLink>
-          </CNavItem>
-        </CHeaderNav>
         <CHeaderNav className="ms-auto">
           <CNavItem>
             <CNavLink href="#">
