@@ -52,8 +52,6 @@ function ProgramList() {
         totalItem: response.totalElements,
         data: response.content,
       }))
-    }, (error) => {
-      toast.error(error.message);
     })
   }
 
@@ -72,9 +70,6 @@ function ProgramList() {
         () => {
           toast.success(t('MSG_CHANGE_DONE'));
           getDataPaging();
-        },
-        (error) => {
-          console.error(error)
         })
       }
   }
@@ -85,9 +80,6 @@ function ProgramList() {
         () => {
           toast.success(t('MSG_UPDATE_DONE'));
           getDataPaging();
-        },
-        (error) => {
-          console.error(error)
         })
     }
   }
@@ -103,7 +95,7 @@ function ProgramList() {
           nameLv: data.nameLv,
           studyLevel: data.studyLevel,
           facultyID: data.faculty.id,
-          industryList: data.industryList
+          industryList: data.industryList.map(industry => industry.id)
         }
       });
     } else {

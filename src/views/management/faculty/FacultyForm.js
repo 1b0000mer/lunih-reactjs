@@ -33,7 +33,7 @@ function FacultyForm({modalData, onClose}) {
           setLoading(false);
           onClose(true);
         },
-        (error) => console.error(error)
+        () => setLoading(false)
       )
     } else {
       FacultyService.create(form).then(
@@ -42,7 +42,7 @@ function FacultyForm({modalData, onClose}) {
           setLoading(false);
           onClose(true);
         },
-        (error) => console.error(error)
+        () => setLoading(false)
       )
     }
   }

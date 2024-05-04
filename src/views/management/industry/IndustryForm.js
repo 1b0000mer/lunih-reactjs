@@ -33,7 +33,7 @@ function IndustryForm({modalData, onClose}) {
           setLoading(false);
           onClose(true);
         },
-        (error) => console.error(error)
+        () => setLoading(false)
       )
     } else {
       IndustryService.create(form).then(
@@ -42,7 +42,7 @@ function IndustryForm({modalData, onClose}) {
           setLoading(false);
           onClose(true);
         },
-        (error) => console.error(error)
+        () => setLoading(false)
       )
     }
   }

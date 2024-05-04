@@ -51,8 +51,6 @@ function FacultyList() {
         totalItem: response.totalElements,
         data: response.content,
       }))
-    }, (error) => {
-      toast.error(error.message);
     })
   }
 
@@ -71,9 +69,6 @@ function FacultyList() {
         () => {
           toast.success(t('MSG_CHANGE_DONE'));
           getDataPaging();
-        },
-        (error) => {
-          console.error(error)
         })
       }
   }
@@ -84,9 +79,6 @@ function FacultyList() {
         () => {
           toast.success(t('MSG_UPDATE_DONE'));
           getDataPaging();
-        },
-        (error) => {
-          console.error(error)
         })
     }
   }

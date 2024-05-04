@@ -8,9 +8,10 @@ import App from './App';
 import store from './store'
 import './i18n';
 
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import AuthenticateService from './core/services/auth/authenticate.service.ts';
 import { UrlConstant } from './core/constants/url.constant.ts';
+import { toast } from 'sonner';
 
 const addLanguageOnly = function (config) {
   config.headers['Accept-Language'] = localStorage.getItem('language') === 'en' ? 'us' : 'lv'
@@ -35,6 +36,22 @@ axios.interceptors.request.use((config) => {
   return config
 });
 
+
+axios.interceptors.response.use(
+  (res) => {
+    return res
+  },
+  (error) => {
+    if (error instanceof AxiosError) {
+      if (error.code === 'ERR_BAD_REQUEST') {
+        toast.error(error.response?.data.message)
+      } else {
+        toast.error(error.message)
+      }
+    }
+    return Promise.reject(error)
+  }
+)
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
