@@ -1,6 +1,6 @@
 import { cilChevronDoubleLeft, cilChevronDoubleRight, cilChevronLeft, cilChevronRight } from "@coreui/icons"
 import CIcon from "@coreui/icons-react"
-import { CForm, CPagination, CPaginationItem, CRow, CCol, CFormSelect } from "@coreui/react"
+import { CForm, CPagination, CPaginationItem, CCol, CFormSelect } from "@coreui/react"
 
 const AppPaginate = ({pageConfig, onPageChange}) => {
   
