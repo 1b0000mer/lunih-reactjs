@@ -1,6 +1,6 @@
 // import { environment } from '../../../environments/environment';
 const environment = {
-  serverUrl: 'http://localhost:4444/'
+  serverUrl: 'https://lunih-lunih-3a16d800.koyeb.app/'
 }
 
 export const UrlConstant = {
