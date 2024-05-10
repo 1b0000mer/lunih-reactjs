@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 
 import MainHeader from './MainHeader';
+import MainFooter from './MainFooter';
 import { CContainer, CSpinner } from '@coreui/react';
 
 import mainRoutes from '../../routes/mainRoute';
@@ -27,6 +28,7 @@ function MainLayout() {
             </Suspense>    
           </CContainer>
         </div>
+        <MainFooter/>
       </div>
     </div>
   )

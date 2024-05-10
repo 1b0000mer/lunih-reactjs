@@ -8,6 +8,7 @@ import Page404 from '../../views/Page404';
 import { CContainer, CSpinner } from '@coreui/react';
 
 import managementRoutes from '../../routes/managementRoute';
+import ManagementFooter from './ManagementFooter';
 
 function ManagementLayout() {
   return (
@@ -30,6 +31,7 @@ function ManagementLayout() {
             </Suspense>    
           </CContainer>
         </div>
+        <ManagementFooter/>
       </div>
     </div>
   )
